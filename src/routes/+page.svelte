@@ -30,4 +30,3 @@
 <h1>jumlah dosen: {data.spreadsheet.profil.length}</h1>
 <h1>total publikasi: {data.spreadsheet.karya_ilmiah.length}</h1>
 <h1>total penelitian: {data.spreadsheet.penelitian.length}</h1>
-<h1>total Pengabdian: {data.spreadsheet.Pengabdian.length}</h1>
