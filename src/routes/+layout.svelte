@@ -13,9 +13,10 @@
   const navItems = [
     { path: "/", label: "Home" },
     { path: "/dosen", label: "Dosen" },
-    { path: "/publikasi", label: "Publikasi" },
-    { path: "/penelitian", label: "Penelitian" },
-    { path: "/skripsi", label: "Pengabdian" },
+    { path: "/tppm", label: "TPPM" },
+    { path: "/skripsi", label: "Skripsi" },
+    { path: "/pkm", label: "PKM" },
+    { path: "/tracerStudi", label: "Tracer Studi" },
   ];
 
   function getVariant(path: string) {

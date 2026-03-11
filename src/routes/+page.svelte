@@ -54,10 +54,8 @@
   <Card class="w-1/2 px-3 py-4 flex flex-col">
     <div class="flex justify-between">
       <div class="flex flex-col gap-2">
-        <p>Total Dosen:</p>
-        <h1 class="font-extrabold text-xl ml-4">
-          {data.spreadsheet.profil.length}
-        </h1>
+        <p>Total Alumni:</p>
+        <h1 class="font-extrabold text-xl ml-4">500</h1>
       </div>
       <Users class="h-10 w-10" />
     </div>
