@@ -1,31 +1,63 @@
-<!-- <script lang="ts">
-  import type { PageProps } from "./$types";
-
-  let { data }: PageProps = $props();
-</script>
-
-<h1>spreadsheet data test</h1>
-<pre>{JSON.stringify(data, null)}</pre>
-{#each data.profil as dosen}
-  <h2>{dosen.name}</h2>
-  <h3>{dosen.nip}</h3>
-{/each}
-
-<p>
-  Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the
-  documentation
-</p> -->
-<!-- src/routes/test/+page.svelte -->
-<!-- src/routes/test/+page.svelte -->
 <script lang="ts">
   import Card from "$lib/components/ui/card/card.svelte";
-  import { Car, GroupIcon, Users } from "lucide-svelte";
+  import {
+    Calendar,
+    FileText,
+    GraduationCap,
+    Lightbulb,
+    Users,
+  } from "lucide-svelte";
   import type { PageProps } from "./$types";
+  import * as Table from "$lib/components/ui/table/index.js";
   let { data }: PageProps = $props();
 
   // Debug: log the structure
   console.log("Data structure:", data);
   console.log("Keys:", Object.keys(data || {}));
+
+  const outlineContents = [
+    {
+      icon: Users,
+      label: "Total Dosen",
+      value: data.spreadsheet.profil.length,
+      subtitle: "Data aktif semester ini",
+      size: "h-10 w-10",
+    },
+    {
+      icon: FileText,
+      label: "RPS TPPM",
+      value: "98%",
+      subtitle: "Dokumen terunggah",
+      size: "h-10 w-10",
+    },
+    {
+      icon: Calendar,
+      label: "Sidang Bulan ini",
+      value: "14",
+      subtitle: "Sudah terjadwal",
+      size: "h-10 w-10",
+    },
+    {
+      icon: GraduationCap,
+      label: "Alumni Terlacak",
+      value: "842",
+      subtitle: "Hasil tracer",
+      size: "h-10 w-10",
+    },
+  ];
+
+  const dosenTotalPublication = data.spreadsheet.profil.map((dosen) => {
+    console.log("dosen Nip", dosen.nip);
+    const jumlahPublikasi = data.spreadsheet.karya_ilmiah.filter(
+      (pub) => pub.nip === dosen.nip,
+    ).length;
+
+    return {
+      nama: dosen.nama,
+      kbk: dosen.kbk,
+      total: jumlahPublikasi,
+    };
+  });
 </script>
 
 <Card class="p-3">
@@ -38,27 +70,44 @@
   </p>
 </Card>
 
-<div class="w-full flex justify-evenly gap-2 mt-3">
-  <Card class="w-1/2 px-3 py-4 flex flex-col">
-    <div class="flex justify-between">
-      <div class="flex flex-col gap-2">
-        <p>Total Dosen:</p>
-        <h1 class="font-extrabold text-xl ml-4">
-          {data.spreadsheet.profil.length}
-        </h1>
+<div class="grid grid-cols-2 gap-2 mt-2">
+  {#each outlineContents as content}
+    <Card class="px-3 py-4 flex flex-col">
+      <div class="flex justify-between">
+        <div class="flex flex-col gap-2">
+          <p class="font-bold tracking-tighter">{content.label}:</p>
+          <h1 class="font-extrabold text-xl ml-4">
+            {content.value}
+          </h1>
+        </div>
+        <svelte:component this={content.icon} class={content.size} />
       </div>
-      <Users class="h-10 w-10" />
-    </div>
-    <h2 class="text-xs -mt-2">Data aktif semester ini</h2>
-  </Card>
-  <Card class="w-1/2 px-3 py-4 flex flex-col">
-    <div class="flex justify-between">
-      <div class="flex flex-col gap-2">
-        <p>Total Alumni:</p>
-        <h1 class="font-extrabold text-xl ml-4">500</h1>
-      </div>
-      <Users class="h-10 w-10" />
-    </div>
-    <h2 class="text-xs -mt-2">Data aktif semester ini</h2>
-  </Card>
+      <h2 class="text-xs -mt-2">{content.subtitle}</h2>
+    </Card>
+  {/each}
 </div>
+<Card class="px-2 mt-2">
+  <div class="flex">
+    <Lightbulb />
+    <h1 class="ml-2 font-bold tracking-tight">Kinerja Publikasi Dosen</h1>
+  </div>
+
+  <Table.Root>
+    <Table.Header>
+      <Table.Row>
+        <Table.Head>Nama Dosen</Table.Head>
+        <Table.Head>KBK</Table.Head>
+        <Table.Head class="text-center">Total Publikasi</Table.Head>
+      </Table.Row>
+    </Table.Header>
+    <Table.Body>
+      {#each dosenTotalPublication as item}
+        <Table.Row>
+          <Table.Cell>{item.nama}</Table.Cell>
+          <Table.Cell>{item.kbk}</Table.Cell>
+          <Table.Cell class="text-center">{item.total}</Table.Cell>
+        </Table.Row>
+      {/each}
+    </Table.Body>
+  </Table.Root>
+</Card>

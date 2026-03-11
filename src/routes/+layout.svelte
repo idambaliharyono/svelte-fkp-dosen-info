@@ -1,11 +1,10 @@
 <script lang="ts">
   import "./layout.css";
   import favicon from "$lib/assets/favicon.svg";
-  import unudLogo from "$lib/assets/UNUD (Universitas Udayana) Bali Logo (SVG) - Vector69Com.svg";
+  import unudLogo from "$lib/assets/SIDATA-IK-removebg-preview(no text).png";
   import type { LayoutProps } from "./$types";
   import { page } from "$app/state";
   import { Button } from "$lib/components/ui/button";
-  import Card from "$lib/components/ui/card/card.svelte";
   import { Bell } from "lucide-svelte";
 
   let { data, children }: LayoutProps = $props();
@@ -26,11 +25,11 @@
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
-<div class="max-w-sm mx-auto border border-black/5 h-screen py-2">
+<div class="max-w-sm mx-auto h-screen py-2 mt-3">
   <div class="flex justify-between">
     <div class="flex">
-      <img src={unudLogo} alt="" class="size-15 grayscale-100" />
-      <div class="flex flex-col ml-2 mt-1.5">
+      <img src={unudLogo} alt="" class="size-18 grayscale-100" />
+      <div class="flex flex-col ml-2 mt-1.5 justify-center">
         <h1 class="text-xl font-extrabold">SIDATA-IK</h1>
         <p class="text-sm text-black/80 -mt-1">Prodi Ilmu Kelautan</p>
       </div>
