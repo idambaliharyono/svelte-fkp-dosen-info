@@ -12,14 +12,18 @@
   let { data }: PageProps = $props();
 
   // Debug: log the structure
-  console.log("Data structure:", data);
-  console.log("Keys:", Object.keys(data || {}));
-
+  // console.log(data.spreadsheet.profil);
+  // console.log("Data structure:", data);
+  // console.log("Keys:", Object.keys(data || {}));
+  const dosenIk = data.spreadsheet.profil.filter(
+    (dosen) => dosen.dosen_ik === "1",
+  );
   const outlineContents = [
     {
       icon: Users,
       label: "Total Dosen",
-      value: data.spreadsheet.profil.length,
+      // value: data.spreadsheet.profil.length,
+      value: dosenIk.length,
       subtitle: "Data aktif semester ini",
       size: "h-10 w-10",
     },
@@ -46,8 +50,8 @@
     },
   ];
 
-  const dosenTotalPublication = data.spreadsheet.profil.map((dosen) => {
-    console.log("dosen Nip", dosen.nip);
+  const dosenTotalPublication = dosenIk.map((dosen) => {
+    // console.log("dosen Nip", dosen.nip);
     const jumlahPublikasi = data.spreadsheet.karya_ilmiah.filter(
       (pub) => pub.nip === dosen.nip,
     ).length;

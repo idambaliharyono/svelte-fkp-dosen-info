@@ -1,0 +1,126 @@
+Project overview
+    Project name
+    [ siData ]
+
+    Type
+    [ infographic dashboard ]
+
+    What it does — one sentence
+    [ an infographic dashboard, public facing, containing faculty information, to ease public accessibility on faculty data.  ]
+
+    Current status
+    [ protototype ]
+
+Tech stack
+    Language(s)
+    [ TypeScript ]
+
+    Framework(s)
+    [ sveltekit ]
+
+    Runtime / platform
+    [ cloudflare worker ]
+
+    Database / storage
+    [ google spreadsheet ]
+
+Folder structure
+
+├── components.json
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+│   ├── app.d.ts
+│   ├── app.html
+│   ├── lib
+│   │   ├── assets
+│   │   │   ├── favicon.svg
+│   │   │   ├── SIDATA-IK-removebg-preview(no text).png
+│   │   │   ├── SIDATA-IK-removebg-preview.png
+│   │   │   └── UNUD (Universitas Udayana) Bali Logo (SVG) - Vector69Com.svg
+│   │   ├── components
+│   │   │   └── ui
+│   │   │       ├── button
+│   │   │       │   ├── button.svelte
+│   │   │       │   └── index.ts
+│   │   │       ├── card
+│   │   │       │   ├── card-action.svelte
+│   │   │       │   ├── card-content.svelte
+│   │   │       │   ├── card-description.svelte
+│   │   │       │   ├── card-footer.svelte
+│   │   │       │   ├── card-header.svelte
+│   │   │       │   ├── card.svelte
+│   │   │       │   ├── card-title.svelte
+│   │   │       │   └── index.ts
+│   │   │       ├── item
+│   │   │       │   ├── index.ts
+│   │   │       │   ├── item-actions.svelte
+│   │   │       │   ├── item-content.svelte
+│   │   │       │   ├── item-description.svelte
+│   │   │       │   ├── item-footer.svelte
+│   │   │       │   ├── item-group.svelte
+│   │   │       │   ├── item-header.svelte
+│   │   │       │   ├── item-media.svelte
+│   │   │       │   ├── item-separator.svelte
+│   │   │       │   ├── item.svelte
+│   │   │       │   └── item-title.svelte
+│   │   │       ├── scroll-area
+│   │   │       │   ├── index.ts
+│   │   │       │   ├── scroll-area-scrollbar.svelte
+│   │   │       │   └── scroll-area.svelte
+│   │   │       ├── separator
+│   │   │       │   ├── index.ts
+│   │   │       │   └── separator.svelte
+│   │   │       ├── spinner
+│   │   │       │   ├── index.ts
+│   │   │       │   └── spinner.svelte
+│   │   │       └── table
+│   │   │           ├── index.ts
+│   │   │           ├── table-body.svelte
+│   │   │           ├── table-caption.svelte
+│   │   │           ├── table-cell.svelte
+│   │   │           ├── table-footer.svelte
+│   │   │           ├── table-header.svelte
+│   │   │           ├── table-head.svelte
+│   │   │           ├── table-row.svelte
+│   │   │           └── table.svelte
+│   │   ├── googlesheets
+│   │   │   └── index.ts
+│   │   ├── hooks
+│   │   ├── index.ts
+│   │   └── utils.ts
+│   ├── routes
+│   │   ├── dosen
+│   │   │   └── +page.svelte
+│   │   ├── layout.css
+│   │   ├── +layout.server.ts
+│   │   ├── +layout.svelte
+│   │   ├── +page.svelte
+│   │   ├── pkm
+│   │   │   └── +page.svelte
+│   │   ├── skripsi
+│   │   │   └── +page.svelte
+│   │   ├── test
+│   │   │   └── +server.ts
+│   │   ├── tppm
+│   │   │   └── +page.svelte
+│   │   └── tracerStudi
+│   │       └── +page.svelte
+│   └── worker-configuration.d.ts
+├── static
+│   └── robots.txt
+├── svelte.config.js
+├── svelte-dosenfkpinfography-8138a393b903.json
+├── tsconfig.json
+├── vite.config.ts
+└── wrangler.jsonc
+
+
+Architecture & patterns
+    How data flows end-to-end
+    [ admin update spreadsheet > sveltekit load function > +page.svelte  ]
+
+    Auth approach
+    [ none ]
+
