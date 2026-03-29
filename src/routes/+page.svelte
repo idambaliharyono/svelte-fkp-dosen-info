@@ -53,7 +53,7 @@
   const dosenTotalPublication = dosenIk.map((dosen) => {
     // console.log("dosen Nip", dosen.nip);
     const jumlahPublikasi = data.spreadsheet.karya_ilmiah.filter(
-      (pub) => pub.nip === dosen.nip,
+      (pub) => pub.no_id === dosen.No,
     ).length;
 
     return {

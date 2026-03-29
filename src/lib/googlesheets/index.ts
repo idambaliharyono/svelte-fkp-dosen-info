@@ -16,7 +16,7 @@ export async function getCachedData(platform: App.Platform) {
   }
   const KV = platform?.env?.SPREADSHEET_DOSEN_FKP;
   const CACHE_KEY = "spreadsheet_data";
-  const CACHE_TTL = 60;
+  const CACHE_TTL = 300;
 
   if (KV) {
     try {
@@ -34,9 +34,20 @@ export async function getCachedData(platform: App.Platform) {
   const rawData = await fetchData(platform);
   const parsedData = await parseData(rawData);
   if (KV) {
-    await KV.put(CACHE_KEY, JSON.stringify(parsedData), {
-      expirationTtl: CACHE_TTL,
-    });
+    try {
+      await KV.put(CACHE_KEY, JSON.stringify(parsedData), {
+        expirationTtl: CACHE_TTL,
+      });
+      console.log("KV write success");
+    } catch (error: any) {
+      console.log("KV write error", error.message, error.cause);
+      console.error("KV error details:", error);
+      const serialized = JSON.stringify(parsedData);
+      console.log(
+        "KV payload size (bytes):",
+        new TextEncoder().encode(serialized).length,
+      );
+    }
   }
   return parsedData;
 }
@@ -65,9 +76,10 @@ async function fetchData(platform: App.Platform | undefined) {
     const ranges = [
       "profil!A1:K100",
       "penelitian!A1:F5000",
-      "mengajar!A1:F1000",
+      "mengajar!A1:G1000",
       "karya_ilmiah!A1:J1000",
       "pengabdian!A1:H1000",
+      "matakuliah!A1:J1000",
     ];
     const response = await sheets.spreadsheets.values.batchGet({
       spreadsheetId,
