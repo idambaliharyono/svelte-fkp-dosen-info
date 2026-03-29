@@ -9,37 +9,57 @@
   import * as Table from "$lib/components/ui/table/index.js";
   import Spinner from "$lib/components/ui/spinner/spinner.svelte";
   import GoogleScholar from "$lib/assets/google-scholar-doctor-of-philosophy-university-google-logo-google-743c4083f26230cd6698b60687d7d963.png";
+  import Sinta from "$lib/assets/brand_sinta.png";
+  import { Item } from "$lib/components/ui/item";
+  import Input from "$lib/components/ui/input/input.svelte";
 
   let { data }: PageProps = $props();
   const dosenIk = data.spreadsheet.profil.filter(
     (dosen) => dosen.dosen_ik === "1",
+  );
+  let search = $state("");
+  let filtered = $derived(
+    dosenIk.filter((dosen) =>
+      dosen.nama.toLowerCase().includes(search.toLowerCase()),
+    ),
   );
   const publikasi = data.spreadsheet.karya_ilmiah;
   const penelitian = data.spreadsheet.penelitian;
   const pengabdian = data.spreadsheet.pengabdian;
   const mengajar = data.spreadsheet.mengajar;
 
-  console.log(mengajar[0]);
-  console.log(pengabdian[0]);
-  console.log(penelitian[0]);
+  // console.log(mengajar[0]);
+  // console.log(pengabdian[0]);
+  // console.log(penelitian[0]);
 
   // console.log(dosenIk[0]);
 </script>
 
+<div class="">
+  <Input
+    class="w-full border rounded-md px-3 py-2 text-sm mb-3"
+    bind:value={search}
+    type="text"
+    placeholder="Cari nama dosen..."
+  />
+</div>
+
 <div class="grid grid-cols-1 gap-3">
-  {#each dosenIk as dosen}
+  {#each filtered as dosen}
     <Card>
       <div class="w-full flex gap-2 px-3">
         <!-- Avatar + Contact -->
         <div class="flex flex-col items-center gap-2 shrink-0">
-          <User class="border rounded-lg w-16 h-16 p-4" />
-          <div class="flex gap-2">
+          <!-- <User class="border rounded-lg w-16 h-16 p-4" /> -->
+          <img
+            src={dosen.link_foto}
+            alt="photo"
+            class="border rounded-lg w-16 h-16 object-cover"
+          />
+          <div class="flex gap-3 mt-1">
             <a href="mailto:{dosen.email}"><Mail size={14} /></a>
             <a href="https://wa.me/{dosen.whatsapp}"><Phone size={14} /></a>
           </div>
-          <a href="">
-            <img src={GoogleScholar} alt="" class="size-6" />
-          </a>
         </div>
         <!-- Info table -->
         <div class="grid grid-cols-1 text-[10px] w-full pl-2">
@@ -53,7 +73,9 @@
           <span class="font-bold text-left"
             >KBK: <span class="font-normal">{dosen.kbk}</span></span
           >
-          <div class="flex justify-center -mb-4 mt-2 -ml-2 w-full">
+          <div
+            class="flex overflow-hidden divide-x rounded-lg mt-2 -mb-8 -ml-8"
+          >
             <Dialog.Root>
               <Dialog.Trigger
                 type="button"
@@ -68,9 +90,20 @@
               </Dialog.Trigger>
               <Dialog.Content>
                 <Dialog.Header>
-                  <Dialog.Title>Publikasi / Karya Ilmiah</Dialog.Title>
+                  <Dialog.Title>Publikasi Internasional</Dialog.Title>
                   <Dialog.Description>
-                    Publikasi oleh {dosen.nama}
+                    <div>
+                      Publikasi karya ilmiah internasional oleh {dosen.nama}
+                    </div>
+
+                    <div class="flex gap-1 mt-3">
+                      <a href="">
+                        <img src={Sinta} alt="" class="size-6" />
+                      </a>
+                      <a href={dosen.scholar}>
+                        <img src={GoogleScholar} alt="" class="size-6" />
+                      </a>
+                    </div>
                   </Dialog.Description>
                 </Dialog.Header>
 
@@ -131,7 +164,7 @@
                 </Dialog.Header>
 
                 <div class="overflow-x-auto max-h-[80vh]">
-                  <Table.Root class="text-[10px] w-full">
+                  <Table.Root class="text-sm w-full">
                     <Table.Header>
                       <Table.Row class="text-center">
                         <Table.Head class="w-14">Tahun</Table.Head>

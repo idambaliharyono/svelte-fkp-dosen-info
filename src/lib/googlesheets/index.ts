@@ -74,7 +74,7 @@ async function fetchData(platform: App.Platform | undefined) {
 
     const sheets = google.sheets({ version: "v4", auth: client as any });
     const ranges = [
-      "profil!A1:K100",
+      "profil!A1:N100",
       "penelitian!A1:F5000",
       "mengajar!A1:G1000",
       "karya_ilmiah!A1:J1000",

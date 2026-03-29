@@ -93,7 +93,9 @@
 <Card class="px-2 mt-2">
   <div class="flex">
     <Lightbulb />
-    <h1 class="ml-2 font-bold tracking-tight">Kinerja Publikasi Dosen</h1>
+    <h1 class="ml-2 font-bold tracking-tight">
+      Kinerja Publikasi Internasional Dosen
+    </h1>
   </div>
 
   <Table.Root>
