@@ -20,19 +20,24 @@ export async function getCachedData(platform: App.Platform) {
 
   if (KV) {
     try {
+      const t0 = performance.now();
       const cached = await KV.get(CACHE_KEY, { type: "json" });
       if (cached && typeof cached === "object" && !Array.isArray(cached)) {
-        console.log("serving from KV");
+        console.log(
+          `serving from KV: ${(performance.now() - t0).toFixed(2)}ms`,
+        );
         return cached as unknown as ParsedData;
       }
     } catch (error) {
       console.log("error:", error);
     }
   }
-
-  console.log("fetching from spreadsheet");
+  const t1 = performance.now();
   const rawData = await fetchData(platform);
   const parsedData = await parseData(rawData);
+  console.log(
+    `serving from spreadsheet: ${(performance.now() - t1).toFixed(2)}ms`,
+  );
   if (KV) {
     try {
       await KV.put(CACHE_KEY, JSON.stringify(parsedData), {
@@ -117,3 +122,12 @@ async function parseData(bulkData: BulkData = []): Promise<ParsedData> {
   });
   return result;
 }
+// defaults.ts
+export const defaultSpreadsheet = {
+  profil: [],
+  karya_ilmiah: [],
+  penelitian: [],
+  pengabdian: [],
+  mengajar: [],
+  matakuliah: [],
+};

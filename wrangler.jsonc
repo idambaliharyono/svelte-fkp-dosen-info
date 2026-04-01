@@ -10,7 +10,7 @@
   "compatibility_flags": ["nodejs_compat", "nodejs_als"],
   "routes": [
     {
-      "pattern": "dosen.prodi-ikl-unud.com",
+      "pattern": "sidata.prodi-ikl-unud.com",
       "custom_domain": true,
     },
   ],
