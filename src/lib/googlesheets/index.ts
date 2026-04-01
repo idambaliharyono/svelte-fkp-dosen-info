@@ -16,7 +16,7 @@ export async function getCachedData(platform: App.Platform) {
   }
   const KV = platform?.env?.SPREADSHEET_DOSEN_FKP;
   const CACHE_KEY = "spreadsheet_data";
-  const CACHE_TTL = 300;
+  const CACHE_TTL = 86400 * 1;
 
   if (KV) {
     try {
