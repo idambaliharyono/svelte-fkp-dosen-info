@@ -136,8 +136,8 @@
                         <Table.Cell class="w-14 align-top"
                           >{item.indeks}</Table.Cell
                         >
-                        <Table.Cell class="align-top" style="max-width: 0;">
-                          <div class="line-clamp-3 w-1/2">
+                        <Table.Cell class="align-top">
+                          <div class="">
                             {item.judul}
                           </div>
                         </Table.Cell>
